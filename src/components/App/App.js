@@ -23,32 +23,32 @@ const business = {
 const businesses = [business, business, business, business, business, business];
 
 // App component renders a SearchBar component and a BusinessList component
-// class App extends React.Component {
-//   searchYelp(term, location, sortBy) {
-//     console.log(`Search Yelp with ${term}, ${location}, ${sortBy}`);
-//   }
+class App extends React.Component {
+  searchYelp(term, location, sortBy) {
+    console.log(`Search Yelp with ${term}, ${location}, ${sortBy}`);
+  }
 
-//   render() {
-//     return (
-//       <div className="App">
-//         <h1>Yelp Clone</h1>
-//         <SearchBar searchYelp={this.searchYelp} />
-//         <BusinessList businesses={businesses} />
-//       </div>
-//     );
-//   }
-// }
+  render() {
+    return (
+      <div className="App">
+        <h1>Yelp Clone</h1>
+        <SearchBar searchYelp={this.searchYelp} />
+        <BusinessList businesses={businesses} />
+      </div>
+    );
+  }
+}
 
 // ALTERNATIVE CONSTRUCTOR FUNCTION
-function App() {
-  return (
-    <div className="App">
-      <h1>ravenous</h1>
-      <SearchBar />
-      <BusinessList businesses={businesses} />
-    </div>
-  );
-}
+// function App() {
+//   return (
+//     <div className="App">
+//       <h1>ravenous</h1>
+//       <SearchBar />
+//       <BusinessList businesses={businesses} />
+//     </div>
+//   );
+// }
 
 export default App;
 
