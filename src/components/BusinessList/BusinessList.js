@@ -9,12 +9,9 @@ class BusinessList extends React.Component {
   render() {
     return (
       <div className="BusinessList">
-        <Business />
-        <Business />
-        <Business />
-        <Business />
-        <Business />
-        <Business />
+        {this.props.businesses.map((business) => (
+          <Business business={business} />
+        ))}
       </div>
     );
   }
@@ -39,6 +36,23 @@ In React components, code reuse is primarily achieved through composition rather
 QUESTIONS
 
 We can have a component inside of a class' render function.
+
+--------------------------------------------------------------------
+Inside render() definition, inside return() function call, 
+add JS inside JSX tags through curly braces.
+Use map() to iterate array and use data in it, 
+and return an array of <Business/> components
+
+<div className="BusinessList">
+  { this.props.businesses.map( ) }
+</div>
+
+--------------------------------------------------------------------
+We can do this: 
+this.props.businesses.map(business => {
+  return <Business business={business} />
+})
+Bc we have imported `Business` 
 
 
 */
