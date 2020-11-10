@@ -17,22 +17,20 @@ export const Yelp = {
     )
       .then((response) => response.json())
       .then((jsonResponse) => {
-        if (jsonResponse.hasOwnProperty(businesses)) {
+        if (jsonResponse.hasOwnProperty('businesses')) {
           console.log('hi', jsonResponse);
-          return jsonResponse.map((business) => ({
+          return jsonResponse.businesses.map((business) => ({
             id: business.id,
             imageSrc: business.image_url,
             name: business.name,
             address:
-              business.location.address1 + business.location.address2
-                ? business.location.address2
-                : '' + business.location.address3
-                ? business.location.address3
-                : '',
+              business.location.address1 +
+              (business.location.address2 ? business.location.address2 : '') +
+              (business.location.address3 ? business.location.address3 : ''),
             city: business.location.city,
             state: business.location.state,
             zipCode: business.location.zip_code,
-            category: business.categories.join(', '),
+            category: business.categories.map((cat) => cat.title).join(', '),
             rating: business.rating,
             reviewCount: business.review_count,
           }));

@@ -4,28 +4,40 @@ import './App.css'; // Import CSS file without variable name
 
 import BusinessList from '../BusinessList/BusinessList';
 import SearchBar from '../SearchBar/SearchBar';
+import { Yelp } from '../../util/Yelp';
 
 // Dummy business listing
-const business = {
-  imageSrc:
-    'https://s3.amazonaws.com/codecademy-content/programs/react/ravenous/pizza.jpg',
-  name: 'MarginOtto Pizzeria',
-  address: '1010 Paddington Way',
-  city: 'Flavortown',
-  state: 'NY',
-  zipCode: '10101',
-  category: 'Italian',
-  rating: 4.5,
-  reviewCount: 90,
-};
+// const business = {
+//   imageSrc:
+//     'https://s3.amazonaws.com/codecademy-content/programs/react/ravenous/pizza.jpg',
+//   name: 'MarginOtto Pizzeria',
+//   address: '1010 Paddington Way',
+//   city: 'Flavortown',
+//   state: 'NY',
+//   zipCode: '10101',
+//   category: 'Italian',
+//   rating: 4.5,
+//   reviewCount: 90,
+// };
 
 // Array of objects
-const businesses = [business, business, business, business, business, business];
+// const businesses = [business, business, business, business, business, business];
 
 // App component renders a SearchBar component and a BusinessList component
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      businesses: [],
+    };
+    this.searchYelp = this.searchYelp.bind(this);
+  }
+
   searchYelp(term, location, sortBy) {
-    console.log(`Search Yelp with ${term}, ${location}, ${sortBy}`);
+    // console.log(`Search Yelp with ${term}, ${location}, ${sortBy}`);
+    Yelp.search(term, location, sortBy).then((businesses) => {
+      this.setState({ businesses: businesses });
+    });
   }
 
   render() {
@@ -33,7 +45,7 @@ class App extends React.Component {
       <div className="App">
         <h1>Yelp Clone</h1>
         <SearchBar searchYelp={this.searchYelp} />
-        <BusinessList businesses={businesses} />
+        <BusinessList businesses={this.state.businesses} />
       </div>
     );
   }
@@ -84,4 +96,9 @@ functional
 Have business data in App.js
 Have array of business data objects. Pass that array down to BusinessList
 
+--------------------------------------------------------------------
+TO DO
+
+Use async/await
+Use hooks (functional programming)
 */
