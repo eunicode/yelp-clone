@@ -9,7 +9,8 @@
     "colorette": "^1.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "whatwg-fetch": "^3.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
