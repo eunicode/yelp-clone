@@ -101,4 +101,5 @@ TO DO
 
 Use async/await
 Use hooks (functional programming)
+Context API
 */

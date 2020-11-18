@@ -43,3 +43,5 @@ Build the app for production in the `build` folder.
 ## Attribution
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+This project's starter files were from codeCademy.
