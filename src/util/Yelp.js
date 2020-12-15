@@ -25,16 +25,23 @@ export const Yelp = {
         return response.json(); // Get JSON value from `response` body. Parses the body text as JSON
       })
       .then((jsonResponse) => {
-        if (jsonResponse.hasOwnProperty('businesses')) {
+        // Check if the JSON response has a `businesses` property to avoid trying to render businesses with no/wrong data
+        if (jsonResponse.businesses) {
           console.log('hi', jsonResponse);
+
+          // Return transformed array of business objects
           return jsonResponse.businesses.map((business) => ({
             id: business.id,
             imageSrc: business.image_url,
             name: business.name,
             address:
               business.location.address1 +
-              (business.location.address2 ? business.location.address2 : '') +
-              (business.location.address3 ? business.location.address3 : ''),
+              (business.location.address2
+                ? ` ${business.location.address2}`
+                : '') +
+              (business.location.address3
+                ? `${business.location.address3}`
+                : ''),
             city: business.location.city,
             state: business.location.state,
             zipCode: business.location.zip_code,
@@ -106,7 +113,7 @@ You can also use an object literal as headers in `init`.
 const myInit = {
   method: 'GET',
   headers: {
-    'Content-Type': 'image/jpeg'
+    'Content-Type': 'image/jpeg'  <--- `headers` object literal
   },
   mode: 'cors',
   cache: 'default'

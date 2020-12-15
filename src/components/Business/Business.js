@@ -5,6 +5,8 @@ import './Business.css';
 
 // `Business` component will represent how a business will be formatted and styled.
 // `Business` class
+
+// Each <Business/> component has a `business` prop that contains Yelp data for one business
 class Business extends React.Component {
   render() {
     return (

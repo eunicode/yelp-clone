@@ -9,7 +9,10 @@ class BusinessList extends React.Component {
   render() {
     return (
       <div className="BusinessList">
+        {/* `props` contains array of Yelp data objects*/}
+        {/* Create array of <Business /> components */}
         {this.props.businesses.map((business) => (
+          // Pass Yelp data object to <Business /> as a prop
           <Business business={business} key={business.id} />
         ))}
       </div>

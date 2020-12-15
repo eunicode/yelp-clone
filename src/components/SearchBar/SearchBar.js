@@ -14,10 +14,10 @@ class SearchBar extends React.Component {
       sortBy: 'best_match',
     };
 
-    this.handleSortByChange = this.handleSortByChange.bind(this);
     this.handleTermChange = this.handleTermChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleSortByChange = this.handleSortByChange.bind(this); //
 
     this.sortByOptions = {
       'Best Match': 'best_match',
@@ -26,7 +26,9 @@ class SearchBar extends React.Component {
     };
   }
 
+  // How come getSortByClass() doesn't need to be bound?
   getSortByClass(sortByOption) {
+    // how is `this` set to SearchBar instance?
     if (this.state.sortBy === sortByOption) {
       return 'active';
     } else {
@@ -39,6 +41,7 @@ class SearchBar extends React.Component {
   }
 
   handleTermChange(event) {
+    // `event` object is automatically passed to event handlers
     this.setState({ term: event.target.value });
   }
 
@@ -46,31 +49,39 @@ class SearchBar extends React.Component {
     this.setState({ location: event.target.value });
   }
 
+  // onclick handler for 'search' button
   handleSearch(event) {
+    // Call searchYelp() with state as arguments
     this.props.searchYelp(
       this.state.term,
       this.state.location,
       this.state.sortBy
     );
 
+    // Prevent the default action of clicking a link
     event.preventDefault();
   }
 
-  // Create array of sort options
+  // Create array of list items that are sorting options
   renderSortByOptions() {
     // returns array of object keys
     return (
+      // Object.keys(obj) returns an array of keys ['Best Match', 'Highest Rated', 'Most Reviewed']
       Object.keys(this.sortByOptions)
-        // returns array of <li>'s
+        // map() returns array of <li>'s
         .map((sortByOption) => {
-          let sortByOptionValue = this.sortByOptions[sortByOption];
+          let sortByOptionValue = this.sortByOptions[sortByOption]; // Use key to get value from object, eg {...}['Best Match'] = 'best_match'
           return (
             <li
+              // State holds active/clicked option, check if option matches state
               className={this.getSortByClass(sortByOptionValue)}
               key={sortByOptionValue}
+              // bind() returns a new fxn definition where `this` and `sortByOptionValue` variable values are defined.
+              // We use bind() to pass second parameter to event handler.
+              // A different callback is created every time SearchBar renders.
               onClick={this.handleSortByChange.bind(this, sortByOptionValue)}
             >
-              {sortByOption}
+              {sortByOption} {/* Best Match */}
             </li>
           );
         })

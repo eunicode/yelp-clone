@@ -33,10 +33,14 @@ class App extends React.Component {
     this.searchYelp = this.searchYelp.bind(this);
   }
 
+  // searchYelp() is defined in <App />, but it's called in <SearchBar />,
+  // bc we get arguments (term, location, sortBy) from <SearchBar />
   searchYelp(term, location, sortBy) {
-    // console.log(`Search Yelp with ${term}, ${location}, ${sortBy}`);
+    // Call search() defined in Yelp.js, which returns array of business objects
     Yelp.search(term, location, sortBy).then((businesses) => {
       this.setState({ businesses: businesses });
+      // `this` is <App/>, even though we call searchYelp() in <SearchBar/>. This is bc we bound `this` to <App/>.
+      // This is crucial! This is how we can move data up from child to the parent.
     });
   }
 
@@ -50,17 +54,6 @@ class App extends React.Component {
     );
   }
 }
-
-// ALTERNATIVE CONSTRUCTOR FUNCTION
-// function App() {
-//   return (
-//     <div className="App">
-//       <h1>ravenous</h1>
-//       <SearchBar />
-//       <BusinessList businesses={businesses} />
-//     </div>
-//   );
-// }
 
 export default App;
 
@@ -95,6 +88,13 @@ functional
 --------------------------------------------------------------------
 Have business data in App.js
 Have array of business data objects. Pass that array down to BusinessList
+Have BusinessList pass down business data to Business. 
+This is prop drilling.
+
+--------------------------------------------------------------------
+<SearchBar searchYelp={this.searchYelp} /> 
+We have searchYelp() in two places: App.prototype or myapp.__proto__, and myapp.searchYelp. 
+We use `this.searchYelp`, bc this is the searchYelp() where `this` is bound to the app instance.
 
 --------------------------------------------------------------------
 TO DO
